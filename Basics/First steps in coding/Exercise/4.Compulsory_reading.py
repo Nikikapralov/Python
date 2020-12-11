@@ -1,0 +1,5 @@
+stranici = int(input())
+stranici_za_chas = int(input())
+dni = int(input())
+chasove_chetene_na_den = stranici / (stranici_za_chas * dni)
+print(chasove_chetene_na_den)
