@@ -1,0 +1,1 @@
+[print(f'{x} -> {y}') for (x, y) in {x: y for x, y in zip([x for x in input().split(', ')], [y for y in input().split(', ')])}.items()]

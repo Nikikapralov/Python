@@ -1,0 +1,1 @@
+print(', '.join([f'{y} -> {len(y)}' for y in [x for x in input().split(', ')]]))
