@@ -10,7 +10,8 @@ class User:
             if book_name in library.books_available[author]:
                 self.books.append(book_name)
                 library.books_available[author].remove(book_name)
-                library.rented_books[self.username] = {}
+                if self.username not in library.rented_books:
+                    library.rented_books[self.username] = {}
                 library.rented_books[self.username].update({book_name: days_to_return})
                 return f'{book_name} successfully rented for the next {days_to_return} days!'
             for user_name in library.rented_books:
