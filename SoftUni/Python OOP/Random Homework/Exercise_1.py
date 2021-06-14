@@ -86,6 +86,7 @@ controller.collect_data('weight')
 print('-' * 30)
 controller.collect_data('name')
 print('-' * 30)
+controller.collect_data('IQ', 'reversed')
 
 
 

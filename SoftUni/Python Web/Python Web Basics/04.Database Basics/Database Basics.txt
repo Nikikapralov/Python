@@ -1,0 +1,7 @@
+CRUD
+Normalisation
+PostgresSQL
+NoSQL
+
+
+Basically the MSSQL course I did earlier covers this part very good.
