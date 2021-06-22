@@ -7,4 +7,4 @@ import sys
 class Todo(models.Model):
     title = models.CharField(max_length=30)
     description = models.TextField(max_length=sys.maxsize)
-    is_done = models.BooleanField(default=False)
+    is_done = models.BooleanField()
