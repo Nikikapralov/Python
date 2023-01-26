@@ -169,7 +169,7 @@ class SinglyLinkedList:
                 return counter
             counter += 1
 
-        raise ValueError(f"No such value f{entry} in the linked list.")
+        raise ValueError(f"No such value {entry} in the linked list.")
 
     def clear(self) -> None:
         """
@@ -298,14 +298,14 @@ class SinglyLinkedList:
     def __validate_is_node_instance(node):
         if not isinstance(node, Node):
             raise TypeError(
-                f"Provided value f{node} is not of type Node. Please import class note and create the node instance\n"
+                f"Provided value {node} is not of type Node. Please import class note and create the node instance\n"
                 f"as follows: Node({node})")
 
     @staticmethod
     def __validate_is_int_instance(position):
         if not isinstance(position, int):
             raise TypeError(
-                f"Provided value f{position} is not of type integer. Please provide the position as an integer.")
+                f"Provided value {position} is not of type integer. Please provide the position as an integer.")
 
 
 
