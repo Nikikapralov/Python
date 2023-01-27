@@ -113,8 +113,13 @@ class CircularSinglyLinkedList:
         for node in self:
             if node.value == entry:
                 if not previous_node:
-                    self.head = node.next
-                    self.tail.next = node.next
+                    if node.next == self.head:
+                        self.head = None
+                        self.tail.next = None
+                        self.tail = None
+                    else:
+                        self.head = node.next
+                        self.tail.next = node.next
                 else:
                     previous_node.next = node.next
                 self.__update_linked_list_properties(node, "remove")
@@ -140,8 +145,13 @@ class CircularSinglyLinkedList:
         for node in self:
             if counter == position:
                 if not previous_node:
-                    self.head = node.next
-                    self.tail.next = node.next
+                    if node.next == self.head:
+                        self.head = None
+                        self.tail.next = None
+                        self.tail = None
+                    else:
+                        self.head = node.next
+                        self.tail.next = node.next
                 else:
                     previous_node.next = node.next
 
@@ -337,11 +347,7 @@ b = Node(2)
 c = Node(3)
 d = Node(4)
 linked_list.append_left(a)
-linked_list.append_left(b)
-linked_list.append(c)
-linked_list.insert(d, 1)
 print(linked_list)
-linked_list[1] = Node(5)
+linked_list.pop()
 print(linked_list)
-
 
