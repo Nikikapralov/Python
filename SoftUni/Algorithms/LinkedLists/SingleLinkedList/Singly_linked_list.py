@@ -109,7 +109,15 @@ class SinglyLinkedList:
         for node in self:
             if node.value == entry:
                 if not previous_node:
-                    self.head = node.next
+                    if node == self.head and node == self.tail:
+                        self.head = None
+                        self.tail = None
+                        node.next = None
+                    else:
+                        self.head = node.next
+                elif node == self.tail:
+                    self.tail = previous_node
+                    self.tail.next = None
                 else:
                     previous_node.next = node.next
                 self.__update_linked_list_properties(node, "remove")
@@ -135,7 +143,15 @@ class SinglyLinkedList:
         for node in self:
             if counter == position:
                 if not previous_node:
-                    self.head = node.next
+                    if node == self.head and node == self.tail:
+                        self.head = None
+                        self.tail = None
+                        node.next = None
+                    else:
+                        self.head = node.next
+                elif position == self.total_items:
+                    self.tail = previous_node
+                    self.tail.next = None
                 else:
                     previous_node.next = node.next
 
@@ -316,14 +332,10 @@ a = Node(1)
 b = Node(2)
 c = Node(3)
 d = Node(4)
-e = Node(2)
-linked_list.append(a)
-linked_list.append_left(b)
-linked_list.insert(c, 1)
-linked_list.insert(d, 2)
-linked_list.append(e)
+linked_list.append_left(a)
+linked_list.insert(b, 1)
 print(linked_list)
-print(linked_list.find_position(1))
+print(linked_list.tail, linked_list.head)
 
 
 

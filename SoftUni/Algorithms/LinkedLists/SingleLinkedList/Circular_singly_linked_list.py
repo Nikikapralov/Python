@@ -115,13 +115,17 @@ class CircularSinglyLinkedList:
                 if not previous_node:
                     if node.next == self.head:
                         self.head = None
-                        self.tail.next = None
                         self.tail = None
+                        node.next = None
                     else:
                         self.head = node.next
                         self.tail.next = node.next
+                elif node == self.tail:
+                    previous_node.next = node.next
+                    self.tail = previous_node
                 else:
                     previous_node.next = node.next
+
                 self.__update_linked_list_properties(node, "remove")
                 return node.value
             previous_node = node
@@ -147,14 +151,16 @@ class CircularSinglyLinkedList:
                 if not previous_node:
                     if node.next == self.head:
                         self.head = None
-                        self.tail.next = None
                         self.tail = None
+                        node.next = None
                     else:
                         self.head = node.next
                         self.tail.next = node.next
+                elif position == self.total_items:
+                    previous_node.next = node.next
+                    self.tail = previous_node
                 else:
                     previous_node.next = node.next
-
                 self.__update_linked_list_properties(node, "remove")
                 return node.value
             previous_node = node
@@ -264,7 +270,7 @@ class CircularSinglyLinkedList:
         representation = "["
         for node in self:
             representation += f"{node.value} -> "
-        representation = representation[:-4] + " -> Head " + str(self.head) + "]"
+        representation = representation[:-4] + " -> Head " + str(self.tail.next) + "]"
         return representation
 
     def __is_head_none(self) -> bool:
@@ -347,7 +353,7 @@ b = Node(2)
 c = Node(3)
 d = Node(4)
 linked_list.append_left(a)
+linked_list.append_left(b)
+linked_list.append(c)
 print(linked_list)
-linked_list.pop()
-print(linked_list)
-
+print(linked_list.head, linked_list.tail)
