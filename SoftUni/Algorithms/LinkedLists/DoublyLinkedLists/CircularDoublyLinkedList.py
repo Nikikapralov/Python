@@ -1,3 +1,6 @@
+from time import sleep
+
+
 class Node:
     """
     Node of singly linked list. Has next property which links it to the next node and value property to hold the value.
@@ -7,6 +10,7 @@ class Node:
 
     def __init__(self, value):
         self.next = None
+        self.previous = None
         self.value = value
         self.identifier = self.node_identifier + 1
         Node.node_identifier += 1
@@ -15,10 +19,10 @@ class Node:
         return str(self.value)
 
 
-class SinglyLinkedList:
+class CircularDoublyLinkedList:
     """
-    Singly linked list implementation.
-    The following implementation provides a multitude of methods for interaction with the SinglyLinkedList class.
+    Circular Singly linked list implementation. The last node has a link to the first node.
+    The following implementation provides a multitude of methods for interaction with the CircularDoublyLinkedList class.
     This implementation forbids the user from attempting to assign an already assigned Node into the list. For example,
     Node A has been assigned to position 3. We cannot reassign Node A to position 4 unless we remove it first. This has
     been made so in order to protect data integrity and make sure that each change of the Linked list is desired and not
@@ -45,7 +49,9 @@ class SinglyLinkedList:
 
         self.__validate_identifier_node_unique_in_list(node.identifier)
 
-        node.next = None
+        node.next = self.head
+        node.previous = self.tail
+        self.head.previous = node
         self.tail.next = node
         self.tail = node
         self.__update_linked_list_properties(node, "add")
@@ -67,6 +73,9 @@ class SinglyLinkedList:
         self.__validate_identifier_node_unique_in_list(node.identifier)
 
         node.next = self.head
+        node.previous = self.tail
+        self.head.previous = node
+        self.tail.next = node
         self.head = node
         self.__update_linked_list_properties(node, "add")
         return None
@@ -93,7 +102,10 @@ class SinglyLinkedList:
             return None
 
         previous_node = self.__get_node(position - 1)
-        node.next = previous_node.next
+        subsequent_node = previous_node.next
+        node.next = subsequent_node
+        node.previous = previous_node
+        subsequent_node.previous = node
         previous_node.next = node
         self.__update_linked_list_properties(node, "add")
 
@@ -113,17 +125,24 @@ class SinglyLinkedList:
                         self.head = None
                         self.tail = None
                         node.next = None
+                        node.previous = None
                     else:
                         self.head = node.next
+                        self.head.previous = self.tail
+                        self.tail.next = node.next
                         node.next = None
-
+                        node.previous = None
                 elif node == self.tail:
                     self.tail = previous_node
-                    self.tail.next = None
-
+                    self.tail.next = self.head
+                    self.head.previous = self.tail
+                    node.next = None
+                    node.previous = None
                 else:
                     previous_node.next = node.next
+                    node.next.previous = previous_node
                     node.next = None
+                    node.previous = None
 
                 self.__update_linked_list_properties(node, "remove")
                 return node.value
@@ -152,16 +171,25 @@ class SinglyLinkedList:
                         self.head = None
                         self.tail = None
                         node.next = None
+                        node.previous = None
                     else:
                         self.head = node.next
+                        self.head.previous = self.tail
+                        self.tail.next = node.next
                         node.next = None
+                        node.previous = None
+
                 elif position == self.total_items:
                     self.tail = previous_node
-                    self.tail.next = None
-
+                    self.tail.next = self.head
+                    self.head.previous = self.tail
+                    node.next = None
+                    node.previous = None
                 else:
                     previous_node.next = node.next
+                    node.next.previous = previous_node
                     node.next = None
+                    node.previous = None
 
                 self.__update_linked_list_properties(node, "remove")
                 return node.value
@@ -184,7 +212,7 @@ class SinglyLinkedList:
         """
         Finds the position of the node with the desired value. If multiple nodes have the same value.
         Returns the first one found. If no such node exists, raises an error.
-        :param node: Value entry of the node that is to be searched for.
+        :param entry: Value entry of the node that is to be searched for.
         :return: Position of node as integer.
         """
         counter = 1
@@ -199,12 +227,43 @@ class SinglyLinkedList:
         """
         Clears the Linked List.
         Sets Head and Tail to Null.
+        Loop through to remove all the links.
         :return: Returns None
         """
+        for node in self:
+            try:
+                node.previous.next = None
+            except AttributeError:
+                pass
+
+            node.previous = None
+
         self.head = None
         self.tail = None
         self.total_items = len([i for i in self])
         self.node_identifiers = []
+
+    def loop(self) -> None:
+        """
+        Will endlessly loop the list.
+        :return: Returns None.
+        """
+        current_node = self.head
+        while current_node.next is not None:
+            print(current_node)
+            current_node = current_node.next
+            sleep(0.5)
+
+    def reverse_loop(self) -> None:
+        """
+        Will endlessly reverse loop the list.
+        :return: Returns None.
+        """
+        current_node = self.tail
+        while current_node.previous is not None:
+            print(current_node)
+            current_node = current_node.previous
+            sleep(0.5)
 
     def __getitem__(self, position: int) -> Node:
         """
@@ -247,7 +306,21 @@ class SinglyLinkedList:
         current_node = self.head
         while current_node is not None:
             yield current_node
+            if current_node.next == self.head:
+                break
             current_node = current_node.next
+
+    def reverse_iter(self):
+        """
+        Allots to iterate the Linked List in reverse.
+        :return: Returns None.
+        """
+        current_node = self.tail
+        while current_node is not None:
+            yield current_node
+            if current_node.previous == self.tail:
+                break
+            current_node = current_node.previous
 
     def __repr__(self) -> str:
         """
@@ -256,10 +329,10 @@ class SinglyLinkedList:
         """
         if self.total_items == 0:
             return "[]"
-        representation = "["
+        representation = "[Tail " + str(self.head.previous) + " <-> ["
         for node in self:
-            representation += f"{node.value} -> "
-        representation = representation[:-4] + "]"
+            representation += f"{node.value} <-> "
+        representation = representation[:-4] + "] <-> Head " + str(self.tail.next) + "]"
         return representation
 
     def __is_head_none(self) -> bool:
@@ -271,12 +344,14 @@ class SinglyLinkedList:
 
     def __set_first_node(self, node: Node) -> None:
         """
-        Set the head and the tail to the first node in the linked list.
+        Set the head and the tail to the first node in the linked list. Set next of tail to the same node.
         :param node: The node.
         :return: Returns None.
         """
         self.head = node
         self.tail = node
+        self.tail.next = self.head
+        self.head.previous = self.tail
 
     def __validate_position(self, position: int) -> None:
         """
@@ -335,7 +410,7 @@ class SinglyLinkedList:
 
 
 
-linked_list = SinglyLinkedList()
+linked_list = CircularDoublyLinkedList()
 a = Node(1)
 b = Node(2)
 c = Node(3)
@@ -350,9 +425,3 @@ linked_list.delete(1)
 linked_list.delete(2)
 print(linked_list)
 print(linked_list.tail, linked_list.head)
-
-
-
-
-
-

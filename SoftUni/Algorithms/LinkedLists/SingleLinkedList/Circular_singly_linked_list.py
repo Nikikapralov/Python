@@ -113,18 +113,22 @@ class CircularSinglyLinkedList:
         for node in self:
             if node.value == entry:
                 if not previous_node:
-                    if node.next == self.head:
+                    if node == self.head and node == self.tail:
                         self.head = None
                         self.tail = None
                         node.next = None
                     else:
                         self.head = node.next
                         self.tail.next = node.next
+                        node.next = None
+
                 elif node == self.tail:
                     previous_node.next = node.next
                     self.tail = previous_node
+                    node.next = None
                 else:
                     previous_node.next = node.next
+                    node.next = None
 
                 self.__update_linked_list_properties(node, "remove")
                 return node.value
@@ -149,18 +153,21 @@ class CircularSinglyLinkedList:
         for node in self:
             if counter == position:
                 if not previous_node:
-                    if node.next == self.head:
+                    if node == self.head and node == self.tail:
                         self.head = None
                         self.tail = None
                         node.next = None
                     else:
                         self.head = node.next
                         self.tail.next = node.next
+                        node.next = None
                 elif position == self.total_items:
                     previous_node.next = node.next
                     self.tail = previous_node
+                    node.next = None
                 else:
                     previous_node.next = node.next
+                    node.next = None
                 self.__update_linked_list_properties(node, "remove")
                 return node.value
             previous_node = node
@@ -201,7 +208,7 @@ class CircularSinglyLinkedList:
         """
         self.head = None
         self.tail = None
-        self.total_items = 0
+        self.total_items = len([i for i in self])
         self.node_identifiers = []
 
     def loop(self) -> None:
@@ -354,6 +361,11 @@ c = Node(3)
 d = Node(4)
 linked_list.append_left(a)
 linked_list.append_left(b)
-linked_list.append(c)
+linked_list.append_left(c)
+linked_list.append_left(d)
 print(linked_list)
-print(linked_list.head, linked_list.tail)
+linked_list.delete(4)
+linked_list.delete(1)
+linked_list.delete(2)
+print(linked_list)
+print(linked_list.tail, linked_list.head)
