@@ -31,18 +31,18 @@ class DoublyLinkedList:
         self.total_items = 0
         self.node_identifiers = []
 
-    def append(self, node: Node) -> None:
+    def append(self, node: Node):
         """
         Appends a node to the end of the linked list.
         :param node: A node holding a value and a link to the next node.
-        :return: Returns None.
+        :return: Return self.
         """
         self.__validate_is_node_instance(node)
 
         if self.__is_head_none():
             self.__set_first_node(node)
             self.__update_linked_list_properties(node, "add")
-            return None
+            return self
 
         self.__validate_identifier_node_unique_in_list(node.identifier)
 
@@ -51,20 +51,20 @@ class DoublyLinkedList:
         self.tail.next = node
         self.tail = node
         self.__update_linked_list_properties(node, "add")
-        return None
+        return self
 
-    def append_left(self, node: Node) -> None:
+    def append_left(self, node: Node):
         """
         Appends a new node at the start of the Linked List.
         :param node: A node holding a value and a link to the next node.
-        :return: Returns None.
+        :return: Returns self.
         """
         self.__validate_is_node_instance(node)
 
         if self.__is_head_none():
             self.__set_first_node(node)
             self.__update_linked_list_properties(node, "add")
-            return None
+            return self
 
         self.__validate_identifier_node_unique_in_list(node.identifier)
 
@@ -72,15 +72,15 @@ class DoublyLinkedList:
         self.head.previous = node
         self.head = node
         self.__update_linked_list_properties(node, "add")
-        return None
+        return self
 
-    def insert(self, node: Node, position: int) -> None:
+    def insert(self, node: Node, position: int):
         """
 
         :param node: A node holding a value and a link to the next node.
         :param position: The position at which the node is to be inserted. When position 2 in a Linked List with 5 items,
         the new 6th node will be inserted at position 2 and will become the second node, pushing the other 4 to the right.
-        :return: Returns None.
+        :return: Returns self.
         """
         self.__validate_is_node_instance(node)
         self.__validate_is_int_instance(position)
@@ -89,11 +89,11 @@ class DoublyLinkedList:
 
         if position == 1:
             self.append_left(node)
-            return None
+            return self
 
         if position == self.total_items + 1:
             self.append(node)
-            return None
+            return self
 
         previous_node = self.__get_node(position - 1)
         next_node = previous_node.next
@@ -102,6 +102,7 @@ class DoublyLinkedList:
         node.previous = previous_node
         node.next = next_node
         self.__update_linked_list_properties(node, "add")
+        return self
 
     def delete(self, entry) -> Node:
         """
@@ -148,7 +149,7 @@ class DoublyLinkedList:
         """
         if position:
             self.__validate_is_int_instance(position)
-            if not position >= 1 <= self.total_items:
+            if not (1 <= position <= self.total_items):
                 raise ValueError(f"The current position does not exist in a Linked List with {self.total_items} items.\n"
                                  f"Available positions are 1 to {self.total_items}")
         if not position:
@@ -369,26 +370,6 @@ class DoublyLinkedList:
         if not isinstance(position, int):
             raise TypeError(
                 f"Provided value {position} is not of type integer. Please provide the position as an integer.")
-
-
-
-
-
-linked_list = DoublyLinkedList()
-a = Node(1)
-b = Node(2)
-c = Node(3)
-d = Node(4)
-linked_list.append_left(a)
-linked_list.append_left(b)
-linked_list.append_left(c)
-linked_list.append_left(d)
-print(linked_list)
-linked_list.delete(4)
-linked_list.delete(1)
-linked_list.delete(2)
-print(linked_list)
-print(linked_list.tail, linked_list.head)
 
 
 

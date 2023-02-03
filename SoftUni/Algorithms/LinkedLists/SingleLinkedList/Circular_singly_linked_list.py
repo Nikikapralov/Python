@@ -142,7 +142,7 @@ class CircularSinglyLinkedList:
         """
         if position:
             self.__validate_is_int_instance(position)
-            if not position >= 1 <= self.total_items:
+            if not (1 <= position <= self.total_items):
                 raise ValueError(f"The current position does not exist in a Linked List with {self.total_items} items.\n"
                                  f"Available positions are 1 to {self.total_items}")
         if not position:

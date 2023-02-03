@@ -34,18 +34,18 @@ class CircularDoublyLinkedList:
         self.total_items = 0
         self.node_identifiers = []
 
-    def append(self, node: Node) -> None:
+    def append(self, node: Node):
         """
         Appends a node to the end of the linked list.
         :param node: A node holding a value and a link to the next node.
-        :return: Returns None.
+        :return: Returns self for chaining.
         """
         self.__validate_is_node_instance(node)
 
         if self.__is_head_none():
             self.__set_first_node(node)
             self.__update_linked_list_properties(node, "add")
-            return None
+            return self
 
         self.__validate_identifier_node_unique_in_list(node.identifier)
 
@@ -55,20 +55,20 @@ class CircularDoublyLinkedList:
         self.tail.next = node
         self.tail = node
         self.__update_linked_list_properties(node, "add")
-        return None
+        return self
 
     def append_left(self, node: Node) -> None:
         """
         Appends a new node at the start of the Linked List.
         :param node: A node holding a value and a link to the next node.
-        :return: Returns None.
+        :return: Returns self for chaining.
         """
         self.__validate_is_node_instance(node)
 
         if self.__is_head_none():
             self.__set_first_node(node)
             self.__update_linked_list_properties(node, "add")
-            return None
+            return self
 
         self.__validate_identifier_node_unique_in_list(node.identifier)
 
@@ -78,7 +78,7 @@ class CircularDoublyLinkedList:
         self.tail.next = node
         self.head = node
         self.__update_linked_list_properties(node, "add")
-        return None
+        return self
 
     def insert(self, node: Node, position: int) -> None:
         """
@@ -95,11 +95,11 @@ class CircularDoublyLinkedList:
 
         if position == 1:
             self.append_left(node)
-            return None
+            return self
 
         if position == self.total_items + 1:
             self.append(node)
-            return None
+            return self
 
         previous_node = self.__get_node(position - 1)
         subsequent_node = previous_node.next
@@ -145,7 +145,7 @@ class CircularDoublyLinkedList:
                     node.previous = None
 
                 self.__update_linked_list_properties(node, "remove")
-                return node.value
+                return node
             previous_node = node
 
     def pop(self, position=None) -> Node:
@@ -156,7 +156,7 @@ class CircularDoublyLinkedList:
         """
         if position:
             self.__validate_is_int_instance(position)
-            if not position >= 1 <= self.total_items:
+            if not (1 <= position <= self.total_items):
                 raise ValueError(f"The current position does not exist in a Linked List with {self.total_items} items.\n"
                                  f"Available positions are 1 to {self.total_items}")
         if not position:
@@ -192,7 +192,7 @@ class CircularDoublyLinkedList:
                     node.previous = None
 
                 self.__update_linked_list_properties(node, "remove")
-                return node.value
+                return node
             previous_node = node
             counter += 1
 
@@ -332,7 +332,7 @@ class CircularDoublyLinkedList:
         representation = "[Tail " + str(self.head.previous) + " <-> ["
         for node in self:
             representation += f"{node.value} <-> "
-        representation = representation[:-4] + "] <-> Head " + str(self.tail.next) + "]"
+        representation = representation[:-5] + "] <-> Head " + str(self.tail.next) + "]"
         return representation
 
     def __is_head_none(self) -> bool:
@@ -405,23 +405,3 @@ class CircularDoublyLinkedList:
         if not isinstance(position, int):
             raise TypeError(
                 f"Provided value {position} is not of type integer. Please provide the position as an integer.")
-
-
-
-
-
-linked_list = CircularDoublyLinkedList()
-a = Node(1)
-b = Node(2)
-c = Node(3)
-d = Node(4)
-linked_list.append_left(a)
-linked_list.append_left(b)
-linked_list.append_left(c)
-linked_list.append_left(d)
-print(linked_list)
-linked_list.delete(4)
-linked_list.delete(1)
-linked_list.delete(2)
-print(linked_list)
-print(linked_list.tail, linked_list.head)
