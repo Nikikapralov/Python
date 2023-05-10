@@ -7,13 +7,9 @@ from time import sleep
 """
 Dynamic task allocation through the use of an allocator.
 If no dynamic task allocation is used, since the tasks take very little time and priority is given to
-first started processes, we end up with the situation of just 1 process doing all the work and repeatedly snatching
-new tasks from the Queue. We have implemented task allocation through an allocator.
-
-The allocator checks which processes are alive and if they are currently doing any work. If so,
-it finds a process that is not doing any work and gives it permission to start working. As soon as a process
-finishes working, it waits for permission from the allocator to resume working.
-The method is a little slower but it distributes the work more evenly around the processes.
+first started processes, we solve this problem by assigning a separate queue to each process and allowing
+for a process to steal from neighbouring process queues if his own is empty. At the end, the processes are killed
+by the 'ingestion' of a poison pill.
 """
 
 class Task():
