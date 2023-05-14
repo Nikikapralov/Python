@@ -36,7 +36,6 @@ class CustomProcess(multiprocessing.Process):
                     self.task_queue.task_done()
                     if number_1 is None:
                         #Poison pill - terminate.
-                        print(f"Terminated {self.name}")
                         return
                 else:
                     #Queue empty - terminate.
@@ -48,7 +47,6 @@ class CustomProcess(multiprocessing.Process):
                         #Cannot compute sum of 1 number so just add number_1 to result_queue and terminate since poison pill
                         #acquired.
                         self.result_queue.put(number_1)
-                        print(f"Terminated {self.name}")
                         return
                 else:
                     self.result_queue.put(number_1)

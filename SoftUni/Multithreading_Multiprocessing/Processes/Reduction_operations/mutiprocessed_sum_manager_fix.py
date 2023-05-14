@@ -33,24 +33,26 @@ class CustomProcess(multiprocessing.Process):
                 if not self.task_queue.empty():
                     number_1 = self.task_queue.get()
                     self.task_queue.task_done()
-                    if number_1 is None:
-                        #Poison pill - terminate.
-                        return
                 else:
                     #Queue empty - terminate.
                     return
                 if not self.task_queue.empty():
                     number_2 = self.task_queue.get()
                     self.task_queue.task_done()
-                    if number_2 is None:
-                        #Cannot compute sum of 1 number so just add number_1 to result_queue and terminate since poison pill
-                        #acquired.
-                        self.result_queue.put(number_1)
-                        return
                 else:
+                    if number_1 is None:
+                        # Poison pill - terminate.
+                        return
                     self.result_queue.put(number_1)
                     #Queue empty, put the 1 number in result queue and terminate.
                     return
+
+            if number_2 is None:
+                # Cannot compute sum of 1 number so just add number_1 to result_queue and terminate since poison pill
+                # acquired.
+                self.result_queue.put(number_1)
+                return
+
             self.result_queue.put(number_1 + number_2)
 
 
