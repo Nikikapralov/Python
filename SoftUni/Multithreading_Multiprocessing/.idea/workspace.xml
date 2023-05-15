@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aa28714f-d799-446b-acaa-e03a662b2d36" name="Changes" comment="" />
+    <list default="true" id="aa28714f-d799-446b-acaa-e03a662b2d36" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -20,6 +29,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Asynchronous/Introduction" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
   </component>
@@ -84,6 +94,11 @@
       <option name="presentableId" value="Default" />
       <updated>1681029051547</updated>
       <workItem from="1681029054469" duration="392000" />
+      <workItem from="1684127484895" duration="600000" />
+      <workItem from="1684129479284" duration="28000" />
+      <workItem from="1684129531771" duration="18000" />
+      <workItem from="1684129682939" duration="1818000" />
+      <workItem from="1684136034701" duration="116000" />
     </task>
     <servers />
   </component>
