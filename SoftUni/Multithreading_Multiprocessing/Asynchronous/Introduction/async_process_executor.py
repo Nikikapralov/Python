@@ -25,7 +25,7 @@ async def main_exec():
     loop = asyncio.get_event_loop()
     executor = concurrent.futures.ProcessPoolExecutor(max_workers=4)
     futures = [loop.run_in_executor(executor, cpu_intensive_func_non_async, args) for args in
-               [[i for i in range(10 ** 7)] for _ in range(8)]]
+               [[i for i in range(10 ** 7)] for _ in range(4)]]
     results = await asyncio.gather(*futures, async_print("Hello"), async_print("No hello"))
     print(results)
     return
@@ -53,3 +53,8 @@ if __name__ == "__main__":
     asyncio.run(main_no_exec())
     # With executor
     asyncio.run(main_exec())
+
+"""
+Hello and No hello will print first even though they are scheduled last by the executor due to the time it takes 
+for the other processes to fire up.
+"""
