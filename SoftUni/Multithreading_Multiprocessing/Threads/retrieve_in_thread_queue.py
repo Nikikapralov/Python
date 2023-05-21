@@ -4,10 +4,10 @@ from collections import deque
 
 
 class CustomThread(threading.Thread):
-    def __init__(self, function, task_queue, name):
+    def __init__(self, function, task_queue, name, lock):
         super().__init__()
         self.function = function
-        self.lock = threading.Lock()
+        self.lock = lock
         self.task_queue = task_queue
         self.name = name
 
@@ -34,10 +34,10 @@ def loop(up_to):
     for i in range(up_to):
         collector.append(i)
 
-
+lock = threading.Lock()
 task_queue = deque([9**8 for i in range(2)])
-thread_A = CustomThread(name="A", function=loop, task_queue=task_queue)
-thread_B = CustomThread(name="B", function=loop, task_queue=task_queue)
+thread_A = CustomThread(name="A", function=loop, task_queue=task_queue, lock=lock)
+thread_B = CustomThread(name="B", function=loop, task_queue=task_queue, lock=lock)
 thread_A.start()
 thread_B.start()
 thread_B.join()
