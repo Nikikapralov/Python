@@ -17,35 +17,55 @@ Multiple threads can read from the file simultaneously, as long as no thread is 
 Only one thread can write to the file and as soon as it is writing to it, no other threads should have access
 to the file.
 """
+
 class Writer(threading.Thread):
-    def __init__(self, name, lock, counters, file_path, *args, **kwargs):
+    def __init__(self, name, lock, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.name = name
         self.lock = lock
-        self.counters = counters
-        self.file_path = file_path
     def run(self):
         while True:
             with self.lock:
-                with open(self.file_path, "a+") as file:
-                    print("fWriting being done by thread {self.name}: I wrote this. \n")
-                    file.write(f"Writing being done by thread {self.name}: I wrote this. \n")
+                print(f"Writing being done by thread {self.name}: I wrote this. \n")
 
 
 
 class Reader(threading.Thread):
-    def __init__(self, name, lock, counters, file_path, *args, **kwargs):
+    def __init__(self, name, lock, counters_lock, counters, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.name = name
         self.lock = lock
         self.counters = counters
-        self.file_path = file_path
+        self.counters_lock = counters_lock
 
     def run(self):
-        pass
+        while True:
+            with self.counters_lock:
+                self.counters["readers_counter"] += 1
+                if self.counters["readers_counter"] == 1:
+                    self.lock.acquire()
+            print(f"Reading being done by thread {self.name}: I read this.")
+            with self.counters_lock:
+                self.counters["readers_counter"] -= 1
+                if self.counters["readers_counter"] == 0:
+                    self.lock.release()
+
+
+
 
 
 if __name__ == "__main__":
     counters = {"readers_counter": 0}
     resource_lock = threading.Lock()
+    counters_lock = threading.Lock()
+    readers = [Reader(str(i), resource_lock, counters_lock, counters) for i in range(3)]
+    writer = Writer("1", resource_lock)
+    writer.start()
+    [reader.start() for reader in readers]
 
+
+"""
+As we can see by the results of this program, once the readers get a hold of the lock, they read so fast that
+the amount of readers never reaches 0. As such they hog the resource and the writer has no ability to write.
+This is called: Readers preference.
+"""
