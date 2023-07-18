@@ -1,0 +1,89 @@
+1. Clean code
+ - Explicit imports on module level.
+ - Order the imports correctly.
+
+2. Optimal Environment
+ - Use the same database in development and in production. (PostgreSQL)
+ - Use virtualenv, pip, docker, etc to minimize the differences between development and production machines.
+
+3. How to lay out Django Projects
+ - Never commit envs and .node_modules since you already have a requirements.txt file.
+ - Build a hierarchy, configuration files in one folder, app files in another. Do not be afraid to break up the monolith into multiple
+smaller apps that each handle specific functionalities. Remember Clean Code.
+ - Use cookiecutter Django to easily generate boilerplate or create your own hierarchical structure that must be very well documented in 
+the README file.
+
+4. Fundamentals of Django App Design
+ - Each app should do one thing and do it well! (Clean code!) If it cannot be explained in a simple sentence, the app is too big!
+ - Consider using services and selectors to avoid tight coupling. Employ Dependency Injection. Then again, consider against it if not
+prepared.
+ - A monolithic app is to be avoided. Multiple smaller apps provide less coupling and if coded well, reduce dependencies to a minimum which 
+in  resut allows for an application to grow and be seamlessly developed by multiple people without the merge problems and constant
+redeployment of a mix of finished and potentially not yet finished features.
+
+
+5. Settings and Requirement Files.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
