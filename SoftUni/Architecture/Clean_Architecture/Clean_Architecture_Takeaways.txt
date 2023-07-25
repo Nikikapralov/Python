@@ -1,49 +1,123 @@
-1. Writing good quality code is always more important than getting the job done and refactoring it later. A program should be easy to change, with plug and play features so that it can evolve
+1. Writing good quality code is always more important than getting the job done and refactoring it later.
+ A program should be easy to change, with plug and play features so that it can evolve
 with changing requirements.
 
 
 2. OOP - Dependency Inversion
 Dependency Inversion allows for the concurrent development of independent features from multiple 
-developers. By strictly following this method, a feature is not dependent on another but on its interface which means that multiple features can be interchanged (plug and play) without harming
+developers. By strictly following this method, a feature is not dependent on another but on its
+ interface which means that multiple features can be interchanged (plug and play) without harming
 the application.
 
-3. Functional Programming - Involves the use of immutable variables. Using such variables prevents race conditions, deadlocks, livelocks etc. It is a good idea to have most of our code as immutable by concurrent processes and just a small amount of it as mutable if it is necessary, wrapped in a transaction as a fallback.
+3. Functional Programming - Involves the use of immutable variables. Using such variables prevents
+ race conditions, deadlocks, livelocks etc. It is a good idea to have most of our code as immutable by
+ concurrent processes and just a small amount of it as mutable if it is necessary, wrapped in a transaction as a fallback.
 
-4. Event sourcing - transactions are stored but not the state of the value. As such, to receive the value, one must evaluate the transactions and will not rely on a potentially vulnerable from 
+4. Event sourcing - transactions are stored but not the state of the value. As such, to receive the
+ value, one must evaluate the transactions and will not rely on a potentially vulnerable from 
 race conditions value. Not sustainable but a good idea.
 
-5. Single responsibility - Seperate the code that different actors depend on, so that if one requires a change, it does not effect the other, for example if they depend on the same function or if 2 developers attempt to merge the code that should have been in 2 modules but was written in 1, this may cause unexpected problems. EXAMPLE - The Facade design pattern is used to enforce the SRP. Instead of one class incorporating many methods that may depend on different actors,
-the class receives classes with the methods, where each class is responsible for one actor. As such the big class is broken up into a Facade which receives and later delegates the life of the smaller classes.
+5. Single responsibility - Seperate the code that different actors depend on, so that if one
+ requires a change, it does not effect the other, for example if they depend on the same function
+ or if 2 developers attempt to merge the code that should have been in 2 modules but was written
+ in 1, this may cause unexpected problems. EXAMPLE - The Facade design pattern is used to enforce
+ the SRP. Instead of one class incorporating many methods that may depend on different actors,
+the class receives classes with the methods, where each class is responsible for one actor.
+ As such the big class is broken up into a Facade which receives and later delegates the life of the smaller classes.
 
 https://refactoring.guru/design-patterns/facade/python/example
 
-6. Open Closed Principle - A class is open for extension but closed for change. We should design our programs as Plug and Play systems, that allow of the interchangeability of code fragments without necessatating modification of already existing code. This principle reinforces the Single reponsibility principle mentioned earlier. Data collection, data modification, each point where a 
+6. Open Closed Principle - A class is open for extension but closed for change. We should design
+ our programs as Plug and Play systems, that allow of the interchangeability of code fragments
+ without necessatating modification of already existing code. This principle reinforces the Single
+ reponsibility principle mentioned earlier. Data collection, data modification, each point where a 
 change is to be expected is to be created as a flexible fragment, with the necessary dependency inversion.
 
-7. Liskov Substitution - If class A and class B are in the same use group, then substituting class A for class B should not require any change to the codebase for the functionality to be kept the same. For example, all figures with 4 sides should have the ability to define all 4 sides in the constructor, regardless if that is square, a rectangle or another figure. If that is not kept as such, then an If condition must be used to check what parameters to be passed to what class. This will prove significantly tedious to keep track of, the more the application grows.
+7. Liskov Substitution - If class A and class B are in the same use group, then substituting class
+ A for class B should not require any change to the codebase for the functionality to be kept the
+ same. For example, all figures with 4 sides should have the ability to define all 4 sides in the
+ constructor, regardless if that is square, a rectangle or another figure. If that is not kept as
+ such, then an If condition must be used to check what parameters to be passed to what class. This 
+will prove significantly tedious to keep track of, the more the application grows.
 
-8. Interface Segregation Principle - Depending on something that one does not use may cause problems in the future when that part changes and inadvertently forces a redeploy that could have been avoided. To solve this problem, segregate a class into multiple interfaces, with each user of this class receiving only the specific interface and its methods that it actually needs. As such, a change in class A will not force a redeployment of the other classes, since their dependency will be small interface, rather than a monolithic one.
+8. Interface Segregation Principle - Depending on something that one does not use may cause problems
+ in the future when that part changes and inadvertently forces a redeploy that could have been avoided.
+ To solve this problem, segregate a class into multiple interfaces, with each user of this class receiving
+ only the specific interface and its methods that it actually needs. As such, a change in class A will
+ not force a redeployment of the other classes, since their dependency will be small interface, rather
+ than a monolithic one.
 
-9. Dependency Inversion Principle - Reduce the dependency of a component on other components to its maximum. To make this happen, we can create a class of the user and pass the needed classes with their functions and data to the constructor already instatiated. This may happen manually or most likely in another Factory class that will generate the dependencies and pass them down onto 
-the User class as ready instances. This principle cannot be fully implemented, as such priority is to be given to functionalities that change often, may change in the future or are currently under devlopment, in other words, volatile fragments of code. Set in stone functionalities may be dependent on, though care must be taken, else a lengthy refactoring will take place.
+9. Dependency Inversion Principle - Reduce the dependency of a component on other components to its
+ maximum. To make this happen, we can create a class of the user and pass the needed classes with their
+ functions and data to the constructor already instatiated. This may happen manually or most likely in
+ another Factory class that will generate the dependencies and pass them down onto 
+the User class as ready instances. This principle cannot be fully implemented, as such priority is to
+ be given to functionalities that change often, may change in the future or are currently under devlopment,
+ in other words, volatile fragments of code. Set in stone functionalities may be dependent on, though care
+ must be taken, else a lengthy refactoring will take place.
 
-10. Components - The history of linker libraries, components and how they were developed. Interesting read but not my favourite part.
+10. Components - The history of linker libraries, components and how they were developed. Interesting
+ read but not my favourite part.
 
 11. Component Cohesion 
- - Reuse/Release Equivalence Principle - What classes are to go in which components? Classes that are going to work together, be kept up to date together and release together
-should go in the same component. A detailed log of changes must be kept up to date, so that the users can decide to upgrade or not.
+ - Reuse/Release Equivalence Principle - What classes are to go in which components? Classes that are
+ going to work together, be kept up to date together and release together
+should go in the same component. A detailed log of changes must be kept up to date, so that the users
+ can decide to upgrade or not.
 
-- Common Closure Principle - Classes that change together frequently should be grouped together in a compomenent. This is the SRP but for components, where a single reason of change 
-should evoke this change in just one component, or turned around, the contents of a component should be responsible to one actor and one actor should be responsible for the contents 
+- Common Closure Principle - Classes that change together frequently should be grouped together in a 
+component. This is the SRP but for components, where a single reason of change 
+should evoke this change in just one component, or turned around, the contents of a component should 
+be responsible to one actor and one actor should be responsible for the contents 
 of a component.
 
-- Common Reuse Principle - Classes that do not depend on each other should not be in the same module. As such, when redeploying, we will not need to redeploy more classes than needed,
+- Common Reuse Principle - Classes that do not depend on each other should not be in the same module.
+ As such, when redeploying, we will not need to redeploy more classes than needed,
 but only those that have changed.
 
 In short:
-Things that change together, are coupled together and answer to the same one actor belong together in a component. Any other DO NOT!
+Things that change together, are coupled together and answer to the same one actor belong together 
+in a component. Any other DO NOT!
 
-We cannot employ all 3 principles, at first, we tend to go towards the CCP and CRP while developing, then move on to REP for ease of use from our users. 
+We cannot employ all 3 principles, at first, we tend to go towards the CCP and CRP while developing,
+ then move on to REP for ease of use from our users. 
+
+12. Component Coupling
+
+- The weekly build and the Acyclic Dependency principle combat the morning after syndrom cause by big teams, 
+working on a small amount of shared source files. 
+- Weekly build - work on your own for 4 days, then on Friday integrate the changes together. Not feasaible at all.
+- Acyclic Dependency Graph - each component is independent of the others and that allows for
+independent development. At the end, testing and adoption uses a bottom up approach.
+- A top down approach is not feasible since the amount of components is rarely known beforehand.
+The application has to be refactored as it grows.
+- Stable Dependencies Principle - There are components that are easy to change and such that are hard to change.
+When an easy to change component depends on a hard to change component, it also becomes hard to change.
+When a lot of software components depend on one single one, that one is a hard to change component. A parent.
+When a component depends on many other components, it is unstable. A child.
+Stable Dependencies Principle states that top level components should be more stable than lower level ones.
+(Stable, many depend on one) I - 0 
+(Unstable, one depends on many)I = 1
+(Abstract, a lot of abstract classes, few total classes) A = 1
+(Not Abstract, few abstract classses, a lot of total classes) A = 0
+
+As with ADG, the solution to a SDP is Dependency Inversion. A flexible component that is depended on by a stable 
+component also becomes stable. To avoid this, we can invert the dependency and pass the flexible component as an interface
+which will allow us to have a flexible fleet of components, children of an abstract class.
+- Stable Abstractions Principle - Flexible classes should follow the OCP principle. Open for modification but closed for change.
+- Zone of pain - highly stable and not abstract component - cannot change, cannot extend. - DB schema
+- Zone of uselessness - higly abstract, highly unstable, without any dependencies. - unimplemented code.
+- Highly abstract, highly stable - Has a lot of abstract classes and few total classes, a lot of modules depend on it.
+(Having a lot of abstract classes means that the functionality is quite rigid and hard to change)
+- Not abstract, unstable - it has few abstract classes and a lot of total classes, a has few modules that depend on it.
+ This is good, because it can easily be extended and it can change without a problem.
+
+*In short, aim to produce a ADG with your components. They must be very abstract(many to one) and be dependent on many other 
+modules (hard to exdend) (Like a Pandas library that many depend on and the abstract classes are its versions) = STABLE/ABSTRACT A LOT
+or have few abstract classes (one version) and the possibility of extension and it should not be depended on by anyone.
+(A Printer class that no one depends on, can be plugged in through an Interface using DIP, can be extended to PrinterCanon etc) 
+and can easily change = UNSTABLE/ABSTRACT NOT A LOT.
+
 
 
 

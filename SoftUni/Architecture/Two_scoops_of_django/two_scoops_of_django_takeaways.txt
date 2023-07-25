@@ -1,0 +1,125 @@
+1. Clean code
+ - Explicit imports on module level.
+ - Order the imports correctly.
+
+2. Optimal Environment
+ - Use the same database in development and in production. (PostgreSQL)
+ - Use virtualenv, pip, docker, etc to minimize the differences between development and production machines.
+
+3. How to lay out Django Projects
+ - Never commit envs and .node_modules since you already have a requirements.txt file.
+ - Build a hierarchy, configuration files in one folder, app files in another. Do not be afraid to break up the monolith into multiple
+smaller apps that each handle specific functionalities. Remember Clean Code.
+ - Use cookiecutter Django to easily generate boilerplate or create your own hierarchical structure that must be very well documented in 
+the README file.
+
+4. Fundamentals of Django App Design
+ - Each app should do one thing and do it well! (Clean code!) If it cannot be explained in a simple sentence, the app is too big!
+ - Consider using services and selectors to avoid tight coupling. Employ Dependency Injection. Then again, consider against it if not
+prepared.
+ - A monolithic app is to be avoided. Multiple smaller apps provide less coupling and if coded well, reduce dependencies to a minimum which 
+in  resut allows for an application to grow and be seamlessly developed by multiple people without the merge problems and constant
+redeployment of a mix of finished and potentially not yet finished features.
+
+
+5. Settings and Requirement Files.
+ - Do NOT use non versioned local settings files. 
+ - Have a different settings.py file for base, development, staging, test, production.
+ - Each settings module should have their own requirements file.
+ - Use environment variables where applicable for secrets. Alternatively, 
+some servers do not support them (Apache), so you can use a JSON based secrets approach to load the data
+which is NOT to be put in GitHub. (You can use ImproperlyConfiguredError to raise exceptions here)
+ - Use Pathlib to set up paths to avoid hardcoding.
+
+
+6. Model Best Practices
+ - Small apps with few models per  app. (5 - 10)
+ - Django Abstract models require class Meta: abstract = True definition and will not create a table.
+ - Model inheritance can save time but may also lead to complications, do not use if it can be avoided.
+ - Multi table inheritance is to be avoided, since it creates an extra table and the DB gets plagued with
+with unnecessary JOINs. Use specific ForeignKeys.
+ - Always back up the DB before commiting migrations!
+ - Use RunPython to run specific functions in the migrations (filling data for example).
+ - Model Design: Start with the highest level normalized DB. Cache heavy or repeatable queries. Only then
+denormalize if absolutely required.
+ - DO NOT SERVE FILES IN BINARY FIELDS! SAVE THE PATH TO A CHARFIELD INSTEAD.
+ - Use Enum or Choices as constants. (Flavour, "Chocolate")
+ - Do not replace object managers. Register another manager in the class and use its functionality:
+Model.objects.filter() and Model.second_manager.filter()
+ - Always set objects = models.Manager() above any custom model manager
+that has a new name.
+ - Fat models: Keep logic in models but be wary of God models. To prevent them from 
+appearing, use Mixins or stateless helper functions.
+
+7. Queries and the Database Layer
+ - Use get_object_or_404 in view based functions or views, not everywhere! Else, something may break unexpectedly when using the admin.
+ - MultipleObjectsReturned and DoesNotExist.
+ - Use lazy evalutions for queries to write legible code.
+ - Use QueryExpressions as much as possible, offload as much work as possible to the Database. This will also avoid Race Conditions. F, Q.
+ - Don't use Raw SQL unless necessary. (Avoid SQL Injection).
+ - Add indexes but sparingly and only after you know where and why.
+ - ATOMIC_REQUESTS: True or when the performance is important wrap specific functions as Transcations.
+  with transaction.atomic and transaction.non_atomic_requests().
+
+8. Function and Class Based Views
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
