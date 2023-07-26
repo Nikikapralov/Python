@@ -118,8 +118,23 @@ or have few abstract classes (one version) and the possibility of extension and 
 (A Printer class that no one depends on, can be plugged in through an Interface using DIP, can be extended to PrinterCanon etc) 
 and can easily change = UNSTABLE/ABSTRACT NOT A LOT.
 
+13. Architecture
+ - The strategy behind that facilitation is to leave as many options open as possible, for as long as possible.
+ - Must cater for - Easy development, deployment, operation (resources in hardware it requires) and maintenance.
+ - Policy must be set in stone (business logic) and details must be flexible (protocols, databases). This allows
+for experimentation (different databases, protocols, Web app or not?, etc). If a company has made a commitment to 
+a detail (a DB for example), a good architect will pretend that such a thing has not happened and will construct
+the system with flexible details nonetheless.
+ - A good architect maximizes the number of decisions not made.
+ - Device Independence - remember the punch cards and magnetic tape problem.
+
+14. Independence
 
 
+
+SOLID
+COMPONENT COHESION - RREP, CCP, CRP
+COMPONENT COUPLING - ADG, SDP, SAP,
 
 
 

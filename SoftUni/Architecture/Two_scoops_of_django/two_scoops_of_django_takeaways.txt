@@ -62,7 +62,22 @@ appearing, use Mixins or stateless helper functions.
   with transaction.atomic and transaction.non_atomic_requests().
 
 8. Function and Class Based Views
-- 
+- Use CBVs for everything that is covered by the CBVs general case classes. If you need to write some workaround to get this done,
+use a function based view.
+- Keep business logic out of views. Use model managers, models and utility helper functions to build reusable components that can
+be integrated into multiple views.
+- Don't use locals(), instead return concrete context dictionary.
+
+9. Best practices of Function Based Views
+ - Can be used to write custom error handlers.
+ - While writing util functions, one can use single argument methodology, passing just the request object and then
+promptly returning the request object at the end. For generic cases, the request object will have all the data that is 
+needed and it can also be modified if need be to reflect change. Such functions can easily become decorators for syntactic sugar.
+(Use functools.wraps(func_var_of_wrapper_func) above the inner function as a decorator to make sure that the linter and the annotations
+work even for a decorated function.
+
+10. Best practices for Class Based Views
+ - 
 
 
 
