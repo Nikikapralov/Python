@@ -80,10 +80,32 @@ work even for a decorated function.
  - 
 
 
+12. Common Patterns for Forms
+ - Simple form with simple Validators
+ - ModelForm with custom Validators
+ - Overriding the clean and clean_field
+ - Form fields through self.fields["name"].required = True (reusing Model Fields)
+ - Reusable Search Mixins etc
 
-
-
-
+13. Form Fundamentals
+ - Validate All Incoming Data with clean, form.is_valid()
+ - Protect against CSRF, CORS, XSS
+ - How to add other fields to forms.
+ 
+17. Django REST
+ - Mark all Views as requiring Admin and go from there on individual View for security.
+ - Use uuid instead of simple +1 pk to protect against attacks.
+ - Protect against CORS, CSRF and XSS.
+ - Use many but smaller serializers
+ - Name your API versions in the URL
+ - Have an API folder for API stuff
+ - Simplify the calls, go atomic!
+ - Notify users well in advance before shutting down the API!
+ - Shutting down of an API is a good reason to collect user emails.
+ - Support out of version API for some time after update.
+ - Rate limit API!
+ - Advertise API through SDKs for most popular languages!
+ - Use JSONResponse with a simple View if you don't want to use Django Rest.
 
 
 
