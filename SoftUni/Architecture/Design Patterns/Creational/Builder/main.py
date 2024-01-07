@@ -18,7 +18,7 @@ class Product:
     ....
 etc.
 
-This is rarely an optimal solution ans should be avoided. Instead, we should implement a Builder class.
+This is rarely an optimal solution and should be avoided. Instead, we should implement a Builder class.
 The Builder class will provide an Interface with the methods that are required to build the Product step
 by step. The client will then use the Builder to invoke those steps and build exactly the object that it
 expects with using the exact parameters that are needed, nothing more, nothing less.
