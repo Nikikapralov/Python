@@ -1,8 +1,7 @@
-from Send_data_to_client_in_real_time.Controller.Controller import Controller
-from Send_data_to_client_in_real_time.Clients.Client import Client
-from Send_data_to_client_in_real_time.Interfaces.Presence import Presence
-from Send_data_to_client_in_real_time.Interfaces.Vehicle_Image import VehicleImage
-from Send_data_to_client_in_real_time.Handle.Handle import handle
+from Controller.Controller import Controller
+from Clients.Client import Client
+from Interfaces.Presence import Presence
+from Handle.Handle import handle
 from time import time
 
 """Main functionality. 

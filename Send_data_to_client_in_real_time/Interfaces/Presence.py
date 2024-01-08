@@ -1,4 +1,4 @@
-from Send_data_to_client_in_real_time.Interfaces.Base_Interface import BaseInterface
+from Interfaces.Base_Interface import BaseInterface
 
 
 class Presence(BaseInterface):

@@ -1,5 +1,5 @@
-from Send_data_to_client_in_real_time.Search_algorithm.Dict_search import find_value
-from Send_data_to_client_in_real_time.Clients.Client import Client
+from Search_algorithm.Dict_search import find_value
+from Clients.Client import Client
 from json import loads, dumps
 from requests import post
 from requests.exceptions import MissingSchema

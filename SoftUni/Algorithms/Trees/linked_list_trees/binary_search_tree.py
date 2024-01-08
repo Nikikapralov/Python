@@ -9,7 +9,7 @@ class BinarySearchTree(BinaryTree):
     TRAVERSAL_FUNCTIONS = {"pre_order": BinaryTree._pre_order,
                            "in_order": BinaryTree._in_order,
                            "post_order": BinaryTree._post_order,
-                           "level": BinaryTree._level}
+                           "level_order": BinaryTree._level_order}
 
     MAX_CHILDREN = 2
 
@@ -80,8 +80,32 @@ class BinarySearchTree(BinaryTree):
 
         return root_node
 
-    def delete(self, node_to_delete):
-        pass
+    def delete(self, value, root_node=None):
+        """
+        Three cases.
+        1. Leaf node - just delete the node.
+        2. Has 1 child - node swap position with child then delete child.
+        3. Has 2 children - find successor, swap position, delete successor. (Successor is lowest node in right branch of
+        root)
+        """
+        if root_node is None:
+            root_node = self
+
+        if root_node.value is None:
+            print("Cannot delete from empty tree.")
+            return None
+
+        if root_node.value < value:
+            root_node.nodes[0] = self.delete(value=value, root_node=root_node.nodes[0])
+
+        elif root_node.value > value:
+            root_node.nodes[1] = self.delete(value=value, root_node=root_node.nodes[1])
+
+        else:
+            pass
+        
+        return self
+
 
     def min_value(self, root_node=None):
         """
@@ -117,6 +141,15 @@ class BinarySearchTree(BinaryTree):
     def __repr__(self):
         return str(self.value) + " " + str(self.duplicates)
 
+    def __find_successor(self):
+        successor = self.min_value(root_node=self.nodes[1])
+        return successor
+
+    @staticmethod
+    def __get_index_left_right(node_to_delete):
+        return [index for index, entry in enumerate(node_to_delete.parent.nodes)
+                                    if entry == node_to_delete][0]
+
 
 search_tree = BinarySearchTree()
 search_tree.insert(100)
@@ -131,4 +164,4 @@ print(search_tree.min_value())
 print(search_tree.max_value())
 print(search_tree.search(120), search_tree.search(120).parent)
 print(search_tree.traverse())
-print(search_tree.traverse(function="pre_order"))
+print(search_tree.traverse(function="level_order"))

@@ -1,6 +1,6 @@
-from Send_data_to_client_in_real_time.Search_algorithm.Dict_search import find_value
-from Send_data_to_client_in_real_time.Interfaces.Presence import Presence
-from Send_data_to_client_in_real_time.Interfaces.Vehicle_Image import VehicleImage
+from Search_algorithm.Dict_search import find_value
+from Interfaces.Presence import Presence
+from Interfaces.Vehicle_Image import VehicleImage
 
 """Returns the interfaces where the given key can be found."""
 

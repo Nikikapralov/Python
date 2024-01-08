@@ -57,7 +57,7 @@ class CircularDoublyLinkedList:
         self.__update_linked_list_properties(node, "add")
         return self
 
-    def append_left(self, node: Node) -> None:
+    def append_left(self, node: Node):
         """
         Appends a new node at the start of the Linked List.
         :param node: A node holding a value and a link to the next node.
@@ -80,7 +80,7 @@ class CircularDoublyLinkedList:
         self.__update_linked_list_properties(node, "add")
         return self
 
-    def insert(self, node: Node, position: int) -> None:
+    def insert(self, node: Node, position: int):
         """
 
         :param node: A node holding a value and a link to the next node.

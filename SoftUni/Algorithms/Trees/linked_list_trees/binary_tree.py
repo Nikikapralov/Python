@@ -1,4 +1,4 @@
-from linked_list_trees.tree import Tree
+from Trees.linked_list_trees.tree import Tree
 
 
 class BinaryTree(Tree):
@@ -6,7 +6,7 @@ class BinaryTree(Tree):
     TRAVERSAL_FUNCTIONS = {"pre_order": Tree._pre_order,
                            "in_order": Tree._in_order,
                            "post_order": Tree._post_order,
-                           "level": Tree._level}
+                           "level_order": Tree._level_order}
 
     MAX_CHILDREN = 2
 

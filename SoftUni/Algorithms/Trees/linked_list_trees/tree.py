@@ -59,7 +59,7 @@ class Tree:
         nodes.append(root_node)
         return nodes
 
-    def _level(self, root_node, nodes=None, arguments=None):
+    def _level_order(self, root_node, nodes=None, arguments=None):
         """
         Siblings by depth level.
                         Root Node 1
@@ -113,17 +113,17 @@ Root Node 4 and Root Node 5    Root Node 6 and Root node 7
     TRAVERSAL_FUNCTIONS = {"pre_order": _pre_order,
                            "in_order": _in_order,
                            "post_order": _post_order,
-                           "level": _level}
+                           "level_order": _level_order}
 
     # A tree can have a variable amount of max children
     MAX_CHILDREN = 2
 
     def __init__(self, root_value=None, parent=None):
         self.value = root_value
-        self.nodes = [None] * self.MAX_CHILDREN
+        self.nodes: list[None] = [None] * self.MAX_CHILDREN
         self.parent = parent
 
-    def traverse(self, function="level", root_node=None, arguments=None):
+    def traverse(self, function="level_order", root_node=None, arguments=None):
         if not root_node:
             root_node = self
 
