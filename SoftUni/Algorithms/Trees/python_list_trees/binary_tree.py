@@ -100,9 +100,6 @@ class BinaryTree:
         parent_index = node_index // 2
         return self.nodes[parent_index]
 
-    def __repr__(self):
-        return str(self.value)
-
 
 tree = BinaryTree()
 tree.insert(1)
