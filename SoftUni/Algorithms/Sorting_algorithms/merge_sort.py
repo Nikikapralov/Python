@@ -15,6 +15,8 @@ Why is this O(N log N)?
 When we divide the elements and merge them together, we must at most do N passes through all elements.
 Since we have divided them and merged before, some of them will already be ordered. This results in a O(N log N)
 complexity.
+
+Very good in sorting linked lists since we do not need random access (index).
 """
 
 unsorted_list: list[int] = [3, 8, 9, 7, 1, 2, 3, 4, 5]

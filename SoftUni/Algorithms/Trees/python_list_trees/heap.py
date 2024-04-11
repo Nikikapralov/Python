@@ -70,7 +70,7 @@ class Heap(ABC):
 
         return self
 
-    def extract(self) -> Heap:
+    def extract(self) -> int:
         """
         Return the root node and appoint a new root node on the Heap.
         Replace the root node with the last element of the heap and
@@ -83,7 +83,7 @@ class Heap(ABC):
         self.current_size -= 1
 
         self._heapify_extract(index=1, priority=last_node)
-        return self
+        return self.peek()
 
     def delete_heap(self) -> Heap:
         """
@@ -170,19 +170,6 @@ class MinHeap(Heap):
             self._heapify_extract(index=smaller[1], priority=priority)
             return None
 
-
-h = MinHeap(10)
-h.insert(1)
-h.insert(7)
-h.insert(3)
-h.insert(9)
-h.insert(2)
-h.insert(5)
-h.insert(4)
-
-print(h.heap_items)
-h.extract()
-print(h.heap_items)
 
 
 
