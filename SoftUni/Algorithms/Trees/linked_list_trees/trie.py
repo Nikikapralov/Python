@@ -186,4 +186,4 @@ class Trie:
 
 t = Trie()
 t.insert("amazon").insert("amaz").insert("amazing").insert("amazonaurous")
-print(t.word_prediction(word_root="amazo"))
+print(t.word_prediction(word_root="amazon"))
