@@ -25,7 +25,7 @@ def container_with_most_water(height: list[int]) -> int:
     right_pointer: int = len(height) - 1
     left_pointer: int = 0
 
-    while right_pointer >= 0 and left_pointer <= len(height) - 1:
+    while right_pointer != left_pointer:
         right: int = height[right_pointer]
         left: int = height[left_pointer]
         distance: int = right_pointer - left_pointer
